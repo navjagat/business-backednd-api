@@ -1,0 +1,7 @@
+#java class Files
+*.class
+# generated files
+.classpath
+.project
+.settings/
+target/
