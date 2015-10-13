@@ -23,6 +23,5 @@
 	<import resource="business-persistence.xml" />
 	<import resource="business-repository.xml" />
 	<import resource="business-service.xml" />
-	<import resource="business-security.xml"/>
 
 </beans>

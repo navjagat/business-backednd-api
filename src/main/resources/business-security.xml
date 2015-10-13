@@ -12,10 +12,10 @@
      http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans.xsd">
 	     
-	<sec:http use-expressions="true" entry-point-ref="authEntryPoint" >
+	<sec:http use-expressions="true" entry-point-ref="authEntryPoint">
 		<sec:intercept-url pattern="/logout" access="permitAll"/>
 		<sec:intercept-url pattern="/authentication/login" access="permitAll"/>
-		<sec:intercept-url pattern="/**" access="ROLE_USER"/>
+		<sec:intercept-url pattern="/**" access="authenticated"/>
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
 		<sec:custom-filter ref="authFilter" position="FORM_LOGIN_FILTER"/>
 		<sec:logout invalidate-session="true" delete-cookies="JSESSIONID" logout-url="/logout" success-handler-ref=""/>
