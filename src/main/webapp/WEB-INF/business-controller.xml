@@ -19,7 +19,11 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
 	<import resource="classpath:application-context.xml" />
-	
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver"/>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
 	<bean id="businessController" class="com.interview.controller.BusinessController"
 		p:businessService-ref="businessService"/>
 	

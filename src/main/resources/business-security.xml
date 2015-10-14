@@ -19,6 +19,7 @@
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
 		<sec:custom-filter ref="authFilter" position="FORM_LOGIN_FILTER"/>
 		<sec:logout invalidate-session="true" delete-cookies="JSESSIONID" logout-url="/logout" success-handler-ref=""/>
+		<sec:csrf disabled="true"/>
 	</sec:http>
 	
 	<sec:authentication-manager id="authenticationManager">

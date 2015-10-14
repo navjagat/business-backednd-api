@@ -105,6 +105,9 @@ public class User implements Serializable {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
+	public User(){
+		
+	}
 	
 	public User(User user) {
 		this.firstName = user.getFirstName();

@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserDetailsService {
 		if(user == null)
 			throw new UsernameNotFoundException("No user Found for Id: "+username);
 		
-		
+		user.getRoles().size();
 		return new CustomUserDetails(user);
 	}
 	
