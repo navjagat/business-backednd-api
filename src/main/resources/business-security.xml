@@ -12,11 +12,11 @@
      http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans.xsd">
 	     
-	<sec:http use-expressions="true" entry-point-ref="authEntryPoint">
+	<sec:http use-expressions="true" entry-point-ref="authEntryPoint" create-session="always">
 	    <sec:csrf token-repository-ref="tokenRepository" disabled="true"/>
 		<sec:intercept-url pattern="/authentication/logout" access="permitAll"/>
 		<sec:intercept-url pattern="/authentication/login" access="permitAll"/>
-		<sec:intercept-url pattern="/authentication" access="permitAll"/>
+		<sec:intercept-url pattern="/authentication" access="authenticated"/>
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
 		<sec:custom-filter ref="csrfTokenFilter" after="CHANNEL_FILTER" />

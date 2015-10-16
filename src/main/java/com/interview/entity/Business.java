@@ -6,6 +6,7 @@ package com.interview.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,9 +36,9 @@ public class Business implements Serializable {
 	@TableGenerator(name="business_pk", table="busspktb", pkColumnName="pk_key", pkColumnValue="pk_value", allocationSize=1)
 	private Long id;
 	
-	private String bussinessName;
+	private String businessName;
 	
-	@OneToMany(targetEntity=Address.class, mappedBy="business")
+	@OneToMany(targetEntity=Address.class, mappedBy="business", cascade=CascadeType.ALL)
 	private List<Address> addresses;
 	
 	@Enumerated(EnumType.STRING)
@@ -60,15 +61,15 @@ public class Business implements Serializable {
 	/**
 	 * @return the bussinessName
 	 */
-	public String getBussinessName() {
-		return bussinessName;
+	public String getBusinessName() {
+		return businessName;
 	}
 
 	/**
-	 * @param bussinessName the bussinessName to set
+	 * @param businessName the bussinessName to set
 	 */
-	public void setBussinessName(String bussinessName) {
-		this.bussinessName = bussinessName;
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
 	}
 
 	/**
