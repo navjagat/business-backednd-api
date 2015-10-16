@@ -6,6 +6,9 @@ INSERT INTO `business`.`user` (`userId`, `firstName`, `lastName`, `pass`) VALUES
 INSERT INTO `business`.`role` (`id`, `roleName`) VALUES ('1', 'ROLE_USER');
 INSERT INTO `business`.`user_role` (`User_userId`, `roles_id`) VALUES ('navjagat@gmail.com', '1');
 
+UPDATE `business`.`user` SET `avatar`='/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICA…ufyg25lwV3fd9TisOaAb2IffuOduMYoJIp5hJu5I28cjFULhsSHn9asyM0R/xqlPN5r5xQB//Z' WHERE `userId`='navjagat@gmail.com';
+
+
 
 INSERT INTO `business` VALUES 
 (1,'FOOD','PunkFoods'),

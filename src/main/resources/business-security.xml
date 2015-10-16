@@ -13,18 +13,21 @@
      http://www.springframework.org/schema/beans/spring-beans.xsd">
 	     
 	<sec:http use-expressions="true" entry-point-ref="authEntryPoint">
+	    <sec:csrf token-repository-ref="tokenRepository" disabled="true"/>
 		<sec:intercept-url pattern="/authentication/logout" access="permitAll"/>
 		<sec:intercept-url pattern="/authentication/login" access="permitAll"/>
 		<sec:intercept-url pattern="/authentication" access="permitAll"/>
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
 		<sec:custom-filter ref="csrfTokenFilter" after="CHANNEL_FILTER" />
-		<sec:custom-filter ref="authFilter" position="FORM_LOGIN_FILTER"/>
+		<sec:form-login login-processing-url="/authentication/login"
+		     username-parameter="username" password-parameter="password" 
+		     authentication-success-handler-ref="authSuccessHandler" 
+		     authentication-failure-handler-ref="authFailureHandler" />
 		<sec:logout  invalidate-session="true" delete-cookies="JSESSIONID" logout-url="/authentication/logout" success-handler-ref="logoutSuccessHandler" />
-		<sec:csrf disabled="true"/>
 	</sec:http>
 	
-	<sec:authentication-manager id="authenticationManager">
+	<sec:authentication-manager>
 		<sec:authentication-provider user-service-ref="userService">
 			<sec:password-encoder ref="myEncoder"/>
 		</sec:authentication-provider>
@@ -34,8 +37,8 @@
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
 		c:_0="6" />
 	
-	<bean id="authFilter" class="com.interview.secessentials.AuthenticationFilter"
-		c:_0-ref="authenticationManager" p:authenticationSuccessHandler-ref="authSuccessHandler" p:authenticationFailureHandler-ref="authFailureHandler"/>
+	<!-- <bean id="authFilter" class="com.interview.secessentials.AuthenticationFilter"
+		c:_0-ref="authenticationManager" p:authenticationSuccessHandler-ref="authSuccessHandler" p:authenticationFailureHandler-ref="authFailureHandler"/> -->
 	
 	<bean id="authEntryPoint" class="com.interview.secessentials.AuthEntryPointHandler"/>
 	
@@ -48,5 +51,19 @@
 	<bean id="csrfTokenFilter" class="com.interview.secessentials.CsrfTokenFilter"/>
 	
 	<bean id="logoutSuccessHandler" class="com.interview.secessentials.LogoutSuccessHandler"/>
+	
+	<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+	    <property name="connectionFactories">
+	        <list>
+	            <bean class="org.springframework.social.google.connect.GoogleConnectionFactory">
+	                <constructor-arg value="${google.key}"></constructor-arg>
+	                <constructor-arg value="${google.secret}"></constructor-arg>
+	            </bean>
+	        </list>
+	    </property>
+	</bean>
+	
+	<bean id="tokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"
+	    p:headerName="X-XSRF-TOKEN"/>
 	
 </beans>
