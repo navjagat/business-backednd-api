@@ -1,5 +1,5 @@
 USE business;
-
+-- password: welcome123
 INSERT INTO `business`.`user` (`userId`, `firstName`, `lastName`, `pass`) VALUES ('navjagat@gmail.com', 'Navneet', 'Prabhakar', '$2a$06$D.TCwqfnjR0K.kbEcHQPUOZVwnwviZSzeB2olZG7QVlxuwSUjeGjC');
 
 
