@@ -37,5 +37,7 @@
 	
 	<bean id="addressController" class="com.interview.controller.AddressController" 
 		p:addressService-ref="addressService"/>
+	
+	<bean id="authenticationController" class="com.interview.controller.AuthenticationController"/>
 
 </beans>

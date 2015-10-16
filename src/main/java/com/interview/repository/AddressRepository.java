@@ -22,7 +22,7 @@ public interface AddressRepository extends CrudRepository<Address, Long> {
 
 	public List<Address> findAll();
 	
-	@Query("From #{entityName} a Where (a.lat >= ?1 and a.lng >= ?2) and (a.lat <= ?3 && a.lng <= ?4")
+	@Query("From #{#entityName} a Where (a.lat >= ?1 and a.lon >= ?2) and (a.lat <= ?3 and a.lon <= ?4)")
 	public List<Address> getFilteredData(double latMin, double lngMin, double latMax, double lngMax);
 	
 }

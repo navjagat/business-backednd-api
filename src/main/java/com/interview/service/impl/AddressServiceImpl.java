@@ -66,7 +66,7 @@ public class AddressServiceImpl implements AddressService {
 	@Transactional(readOnly=true)
 	public List<Address> retrieveAll(Double lat, Double lng) {
 		
-		return repository.getFilteredData(lat-5, lng-5, lat+5, lng+5);
+		return repository.getFilteredData(lat-0.1, lng-0.1, lat+0.1, lng+0.1);
 	}
 
 }
