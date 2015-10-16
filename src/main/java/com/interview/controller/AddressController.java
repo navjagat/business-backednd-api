@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ import com.interview.service.AddressService;
  *
  */
 @RestController
-@RequestMapping(value="/address", consumes=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/address", produces=MediaType.APPLICATION_JSON_VALUE)
 public class AddressController extends BaseController {
 	
 	private AddressService addressService;
@@ -37,22 +38,29 @@ public class AddressController extends BaseController {
 		this.addressService = addressService;
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Address create(@RequestBody Address address){
 		return addressService.create(address);
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public Address update(@RequestBody Address address) throws DataNotFoundException{
 		return addressService.update(address);
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public List<Address> retrieveAll(){
-		return addressService.retrieveAll();
+	public List<Address> retrieveAll(
+			@RequestParam(value="lat", required=false) Double lat,
+			@RequestParam(value="lng", required=false) Double lng){
+		
+		if( lat != null && lng != null){
+			return addressService.retrieveAll(lat, lng);
+		}else{
+			return addressService.retrieveAll();
+		}
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)

@@ -13,12 +13,13 @@
      http://www.springframework.org/schema/beans/spring-beans.xsd">
 	     
 	<sec:http use-expressions="true" entry-point-ref="authEntryPoint">
-		<sec:intercept-url pattern="/logout" access="permitAll"/>
+		<sec:intercept-url pattern="/authentication/logout" access="permitAll"/>
 		<sec:intercept-url pattern="/authentication/login" access="permitAll"/>
 		<sec:intercept-url pattern="/**" access="authenticated"/>
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
+		<sec:custom-filter ref="csrfTokenFilter" after="CHANNEL_FILTER" />
 		<sec:custom-filter ref="authFilter" position="FORM_LOGIN_FILTER"/>
-		<sec:logout invalidate-session="true" delete-cookies="JSESSIONID" logout-url="/logout" success-handler-ref=""/>
+		<sec:logout  invalidate-session="true" delete-cookies="JSESSIONID" logout-url="/authentication/logout" success-handler-ref="logoutSuccessHandler" />
 		<sec:csrf disabled="true"/>
 	</sec:http>
 	
@@ -42,5 +43,9 @@
 	<bean id="authFailureHandler" class="com.interview.secessentials.AuthFailureHandler"/>
 	
 	<bean id="accessDeniedHandler" class="com.interview.secessentials.AccessDeniedHandler"/>
+	
+	<bean id="csrfTokenFilter" class="com.interview.secessentials.CsrfTokenFilter"/>
+	
+	<bean id="logoutSuccessHandler" class="com.interview.secessentials.LogoutSuccessHandler"/>
 	
 </beans>

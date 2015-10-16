@@ -23,6 +23,14 @@
 		<mvc:argument-resolvers>
 			<bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver"/>
 		</mvc:argument-resolvers>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.interview.secessentials.LazyObjectMapper" />
+				</property>
+			</bean>
+		</mvc:message-converters>
 	</mvc:annotation-driven>
 	<bean id="businessController" class="com.interview.controller.BusinessController"
 		p:businessService-ref="businessService"/>

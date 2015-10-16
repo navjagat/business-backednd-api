@@ -23,7 +23,7 @@ import com.interview.service.BusinessService;
  *
  */
 @RestController
-@RequestMapping(value="/business", consumes=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/business", produces=MediaType.APPLICATION_JSON_VALUE)
 public class BusinessController extends BaseController{
 	
 	private BusinessService businessService;
@@ -36,19 +36,19 @@ public class BusinessController extends BaseController{
 		this.businessService = businessService;
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Business create(@RequestBody Business business){
 		return businessService.create(business);
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public Business update(@RequestBody Business business) throws DataNotFoundException{
 		return businessService.update(business);
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public List<Business> retrieveAll(){
 		return businessService.retrieveAll();

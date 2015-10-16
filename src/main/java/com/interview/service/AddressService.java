@@ -21,4 +21,6 @@ public interface AddressService {
 	public Address update(Address address) throws DataNotFoundException;
 	
 	public void remove(Long id) throws DataNotFoundException;
+
+	public List<Address> retrieveAll(Double lat, Double lng);
 }

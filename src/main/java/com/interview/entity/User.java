@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Replica of the User Table in Database
  * 
@@ -32,6 +34,8 @@ public class User implements Serializable {
 	private String firstName;
 	
 	private String lastName;
+	
+	private String avatar;
 	
 	@OneToMany(targetEntity=Role.class)
 	private List<Role> roles;
@@ -95,6 +99,7 @@ public class User implements Serializable {
 	/**
 	 * @return the password
 	 */
+	@JsonIgnore
 	public String getPass() {
 		return pass;
 	}
@@ -115,6 +120,20 @@ public class User implements Serializable {
 		this.userId = user.getUserId();
 		this.roles = user.getRoles();
 		this.pass = user.getPass();
+	}
+
+	/**
+	 * @return the avatar
+	 */
+	public String getAvatar() {
+		return avatar;
+	}
+
+	/**
+	 * @param avatar the avatar to set
+	 */
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.interview.entity.Role;
 import com.interview.entity.User;
 import com.interview.repository.UserRepository;
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserDetailsService {
 		}
 		
 		@Override
+		@JsonIgnore
 		public Collection<? extends GrantedAuthority> getAuthorities() {
 			List<Role> roles = getRoles();
 			String[] rolesString = new String[roles.size()];
@@ -59,31 +61,37 @@ public class UserServiceImpl implements UserDetailsService {
 		}
 
 		@Override
+		@JsonIgnore
 		public String getPassword() {
 			return getPass();
 		}
 
 		@Override
+		@JsonIgnore
 		public String getUsername() {
 			return getUserId();
 		}
 
 		@Override
+		@JsonIgnore
 		public boolean isAccountNonExpired() {
 			return true;
 		}
 
 		@Override
+		@JsonIgnore
 		public boolean isAccountNonLocked() {
 			return true;
 		}
 
 		@Override
+		@JsonIgnore
 		public boolean isCredentialsNonExpired() {
 			return true;
 		}
 
 		@Override
+		@JsonIgnore
 		public boolean isEnabled() {
 			return true;
 		}
