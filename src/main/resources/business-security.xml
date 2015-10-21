@@ -56,7 +56,7 @@
 	    <property name="connectionFactories">
 	        <list>
 	            <bean class="org.springframework.social.google.connect.GoogleConnectionFactory">
-	                <constructor-arg value="${google.key}"></constructor-arg>
+	                <constructor-arg value="${google.clientId}"></constructor-arg>
 	                <constructor-arg value="${google.secret}"></constructor-arg>
 	            </bean>
 	        </list>

@@ -23,5 +23,11 @@ public class AuthenticationController {
 		}else
 			return null;
 	}
+	
+	/*@RequestMapping(value="/google", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void getGoogleAuthentication(){
+		
+	}*/
 
 }
