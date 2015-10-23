@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.interview.entity.User;
 
 public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	@Override
@@ -20,10 +19,10 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 
-		User user = (User) authentication.getPrincipal();
+		//User user = (User) authentication.getPrincipal();
 		ObjectWriter ow = new ObjectMapper().writer()
 				.withDefaultPrettyPrinter();
-		String authObject = ow.writeValueAsString(user);
+		String authObject = ow.writeValueAsString(authentication.getPrincipal());
 		response.setContentType("application/json");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentLength(authObject.length());

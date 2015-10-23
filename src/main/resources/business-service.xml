@@ -27,5 +27,8 @@
 	 
 	 <bean id="userService" class="com.interview.service.impl.UserServiceImpl"
 	 	c:_0-ref="userRepository"/>
+	 	
+	 <bean id="socialUserService" class="com.interview.service.impl.SocialUserService"
+	 	c:_0-ref="userService"/>
 
 </beans>
