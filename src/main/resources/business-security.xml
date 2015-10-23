@@ -55,7 +55,7 @@
 
 	<bean id="authEntryPoint" class="com.interview.secessentials.AuthEntryPointHandler" />
 
-	<bean id="authSuccessHandler" class="com.interview.secessentials.AuthSuccessHandler" />
+	<bean id="authSuccessHandler" class="com.interview.secessentials.AuthSuccessHandler" p:redirectUrl="${social.redirect}" />
 
 	<bean id="authFailureHandler" class="com.interview.secessentials.AuthFailureHandler" />
 

@@ -14,6 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+	
+	private String redirectUrl;
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
@@ -26,11 +29,19 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		response.setContentType("application/json");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentLength(authObject.length());
-
+		
+		response.sendRedirect(redirectUrl);
 		PrintWriter pw = response.getWriter();
 
 		pw.write(authObject);
 		pw.flush();
 		pw.close();
+	}
+
+	/**
+	 * @param redirectUrl the redirectUrl to set
+	 */
+	public void setRedirectUrl(String redirectUrl) {
+		this.redirectUrl = redirectUrl;
 	}
 }
