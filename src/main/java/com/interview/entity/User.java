@@ -28,6 +28,8 @@ public class User implements Serializable {
 
 	@Id
 	private String userId;
+	
+	private String email;
 
 	private String pass;
 
@@ -126,6 +128,8 @@ public class User implements Serializable {
 		this.userId = user.getUserId();
 		this.roles = user.getRoles();
 		this.pass = user.getPass();
+		this.email = user.getEmail();
+		this.avatar = user.getAvatar();
 	}
 
 	/**
@@ -134,9 +138,10 @@ public class User implements Serializable {
 	 * @param firstName
 	 * @param lastName
 	 * @param avatar
+	 * @param string 
 	 * @param roles
 	 */
-	public User(String userId, String pass, String firstName, String lastName,
+	public User(String userId, String email, String pass, String firstName, String lastName,
 			String avatar) {
 		super();
 		this.userId = userId;
@@ -144,6 +149,7 @@ public class User implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.avatar = avatar;
+		this.email = email;
 	}
 
 	/**
@@ -159,6 +165,20 @@ public class User implements Serializable {
 	 */
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

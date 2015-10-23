@@ -5,25 +5,59 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+class CustomPk implements Serializable{
+
+	private static final long serialVersionUID = -947046936555564886L;
+	private String userId;
+	private String providerId;
+	private String providerUserId;
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @return the providerId
+	 */
+	public String getProviderId() {
+		return providerId;
+	}
+	
+	/**
+	 * @return the providerUserId
+	 */
+	public String getProviderUserId() {
+		return providerUserId;
+	}
+	
+}
+
 @Entity
-@Table
+@Table(indexes={@Index(columnList="userId, providerId, rank", name="UserConnectionRank", unique=true)})
 @JsonInclude(Include.NON_NULL)
+@IdClass(CustomPk.class)
 public class UserConnection implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String userId;
-
+	
+	@Id
 	private String providerId;
-
+	
+	@Id
 	private String providerUserId;
-
+	
 	private Long rank;
 
 	private String displayName;

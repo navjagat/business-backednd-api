@@ -39,6 +39,7 @@ public class SocialUserService implements SocialUserDetailsService {
 		public CustomSocialUserDetails(UserDetails userDetails) {
 			CustomUserDetails det = (CustomUserDetails) userDetails;
 			setDisplayName(det.getFirstName() + " " + det.getLastName());
+			setImageUrl(det.getAvatar());
 			this.userDetails = userDetails;
 		}
 		
@@ -68,7 +69,7 @@ public class SocialUserService implements SocialUserDetailsService {
 		
 		@Override
 		public String getUsername() {
-			return userDetails.getUsername();
+			return ((CustomUserDetails) userDetails).getEmail();
 		}
 		
 		@Override

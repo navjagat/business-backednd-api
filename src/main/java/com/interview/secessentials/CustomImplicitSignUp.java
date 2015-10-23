@@ -5,20 +5,19 @@ import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionData;
-import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UserProfile;
 
 import com.interview.entity.Role;
 import com.interview.entity.User;
-import com.interview.entity.UserConnection;
 import com.interview.repository.RoleRepository;
 import com.interview.repository.UserConnectionRepository;
 import com.interview.repository.UserRepository;
 
 public class CustomImplicitSignUp implements ConnectionSignUp {
-
+	
+	
+	@SuppressWarnings("unused")
 	private UserConnectionRepository repository;
 	
 	private UserRepository userRepository;
@@ -31,12 +30,9 @@ public class CustomImplicitSignUp implements ConnectionSignUp {
 
 	@Override
 	public String execute(Connection<?> connection) {
-		ConnectionKey key = connection.getKey();
 		UserProfile profile = connection.fetchUserProfile();
-		ConnectionData conData = connection.createData();
 		
-		if(userRepository != null){
-			User user = new User(profile.getEmail(), RandomStringUtils.randomAlphanumeric(8), profile.getFirstName(), profile.getLastName(), connection.getImageUrl());
+			User user = new User(profile.getUsername(), profile.getEmail(), RandomStringUtils.randomAlphanumeric(8), profile.getFirstName(), profile.getLastName(), connection.getImageUrl());
 			//TODO: assign roles according to provider
 			Role role;
 			List<Role> roles = new ArrayList<Role>();
@@ -53,14 +49,8 @@ public class CustomImplicitSignUp implements ConnectionSignUp {
 			
 			user.setRoles(roles);
 			
-			userRepository.save(user);
-		}
+			return userRepository.save(user).getUserId();
 
-		return repository.save(new UserConnection(profile.getEmail(), key
-				.getProviderId(), key.getProviderUserId(), null, connection
-				.getDisplayName(), connection.getProfileUrl(), connection
-				.getImageUrl(), conData.getAccessToken(), conData.getSecret(),
-				conData.getRefreshToken(), conData.getExpireTime())).getUserId();
 	}
 
 	/**
